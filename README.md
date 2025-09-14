@@ -76,12 +76,6 @@ Create `.env` files in the appropriate directories:
 DATABASE_URL="postgresql://username:password@localhost:5432/health_chatbot"
 ```
 
-**apps/web/.env.local:**
-```
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-```
-
 **apps/api/.env:**
 ```
 JWT_SECRET=your_jwt_secret
