@@ -13,6 +13,9 @@ import {
 import { prismaClient } from "db/client";
 import jwt from "jsonwebtoken";
 import cors from "cors";
+import { JWT_SECRET } from "../config";
+import { authenticateToken } from "./middleware";
+import { validateRequest } from "./validation_middleware";
 
 const app = express();
 const prisma = prismaClient;
@@ -20,43 +23,6 @@ const prisma = prismaClient;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// JWT Secret (in production, use environment variable)
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
-
-// Auth middleware
-const authenticateToken = (req: Request, res: Response, next: any) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ error: 'Access token required' });
-    }
-
-    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
-        if (err) {
-            return res.status(403).json({ error: 'Invalid token' });
-        }
-        req.user = user;
-        next();
-    });
-};
-
-// Validation middleware
-const validateRequest = (schema: any) => {
-    return (req: Request, res: Response, next: any) => {
-        try {
-            const validatedData = schema.parse(req.body);
-            req.body = validatedData;
-            next();
-        } catch (error: any) {
-            return res.status(400).json({
-                error: "Validation failed",
-                details: error.errors || error.message
-            });
-        }
-    };
-};
 
 // Health check
 app.get("/health", (req: Request, res: Response) => {

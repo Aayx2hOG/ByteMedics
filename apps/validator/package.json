@@ -10,7 +10,11 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "zod": "^4.1.8",
-    "db": "*"
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "db": "*",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^4.1.8"
   }
 }
