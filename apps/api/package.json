@@ -1,0 +1,30 @@
+{
+    "name": "api",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "bun --watch index.ts",
+        "start": "bun index.ts",
+        "build": "bun build index.ts --outdir ./dist",
+        "clean": "rm -rf dist"
+    },
+    "devDependencies": {
+        "@types/bun": "latest",
+        "@types/cors": "^2.8.17"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "@types/express": "^5.0.3",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/ws": "^8.18.1",
+        "cors": "^2.8.5",
+        "db": "workspace:*",
+        "express": "^5.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "validator": "workspace:*",
+        "ws": "^8.18.3"
+    }
+}
