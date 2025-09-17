@@ -498,7 +498,7 @@ class ChatWebSocketServer {
     }
 }
 
-const WS_PORT = process.env.WS_PORT || 5001;
+const WS_PORT = process.env.WS_PORT || 4001;
 export const chatWebSocketServer = new ChatWebSocketServer(Number(WS_PORT));
 
 export { ChatWebSocketServer };

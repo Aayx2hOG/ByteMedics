@@ -1,8 +1,8 @@
 import { app } from './http/chat-api.js';
 import './websocket/chat-websocket.js';
 
-const HTTP_PORT = process.env.HTTP_PORT || 5000;
-const WS_PORT = process.env.WS_PORT || 5001;
+const HTTP_PORT = process.env.HTTP_PORT || 4000;
+const WS_PORT = process.env.WS_PORT || 4001;
 
 // Start HTTP server
 app.listen(HTTP_PORT, () => {
