@@ -1,0 +1,86 @@
+text,intent
+hi,greet
+hello,greet
+hey,greet
+heyy,greet
+heyyy!!,greet
+hiya,greet
+yo doc,greet
+good morning,greet
+good evening,greet
+hey there,greet
+hi doctor,greet
+sup,greet
+wassup,greet
+hiiiii,greet
+helloo,greet
+g’day,greet
+what does it mean if I have chest pain,ask_symptom
+what should I do for fever,ask_symptom
+what is the cure for cough,ask_symptom
+how do I know if it is serious,ask_symptom
+can you explain my symptoms,ask_symptom
+i feel dizzy what do i do,ask_symptom
+why do i always get headaches,ask_symptom
+got stomach ache solution?,ask_symptom
+how can i stop my cold fast,ask_symptom
+remedy for sore throat,ask_symptom
+how to treat back pain,ask_symptom
+any tips for nausea,ask_symptom
+what if my fever lasts 3 days,ask_symptom
+what do you recommend for cough,ask_symptom
+I have a fever and cough,give_symptom
+chest pain and sweating,give_symptom
+headache with nausea,give_symptom
+my throat is sore,give_symptom
+stomach pain since yesterday,give_symptom
+cant sleep because of headache,give_symptom
+nose blocked and heavy head,give_symptom
+back hurts,give_symptom
+pain in lower belly,give_symptom
+weakness and body ache,give_symptom
+dry cough all night,give_symptom
+running nose n sneezing,give_symptom
+burning eyes with fever,give_symptom
+loss of appetite,give_symptom
+vomiting after food,give_symptom
+I can't breathe properly,emergency
+"help me, I am fainting",emergency
+severe chest pain,emergency
+blood is coming when I cough,emergency
+my heart is beating too fast,emergency
+feel like passing out,emergency
+heavy bleeding,emergency
+vision is blurring,emergency
+heart hurts bad,emergency
+can't stand straight,emergency
+emergency help please,emergency
+call doctor fast,emergency
+urgent help,emergency
+collapsing rn,emergency
+serious trouble breathing,emergency
+thank you,thanks
+thanks a lot,thanks
+thx,thanks
+thanks doc,thanks
+tysm,thanks
+appreciate your help,thanks
+grateful,thanks
+thx bro,thanks
+big thanks,thanks
+thanx,thanks
+thank u so much,thanks
+ok thanks,thanks
+cheers,thanks
+bye,goodbye
+see you later,goodbye
+good night,goodbye
+take care,goodbye
+farewell,goodbye
+bye bye,goodbye
+ok bye,goodbye
+cya,goodbye
+catch you later,goodbye
+goodbye doctor,goodbye
+peace out,goodbye
+laters,goodbye
