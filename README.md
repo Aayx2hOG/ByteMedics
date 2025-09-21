@@ -79,7 +79,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/health_chatbot"
 **apps/api/.env:**
 ```
 JWT_SECRET=your_jwt_secret
-HTTP_PORT=5000
+HTTP_PORT=4000
 WS_PORT=5001
 ```
 

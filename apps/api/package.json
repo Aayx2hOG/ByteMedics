@@ -4,9 +4,9 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "dev": "bun --watch index.ts",
-        "start": "bun index.ts",
-        "build": "bun build index.ts --outdir ./dist",
+        "dev": "bun --watch server.ts",
+        "start": "bun server.ts",
+        "build": "bun build server.ts --outdir ./dist",
         "clean": "rm -rf dist"
     },
     "devDependencies": {
@@ -24,6 +24,7 @@
         "db": "workspace:*",
         "express": "^5.1.0",
         "jsonwebtoken": "^9.0.2",
+        "socket.io": "^4.8.1",
         "validator": "workspace:*",
         "ws": "^8.18.3"
     }

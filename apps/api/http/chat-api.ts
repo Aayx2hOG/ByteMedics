@@ -353,7 +353,7 @@ app.put("/api/v1/chat/sessions/:sessionId/end", authenticateToken, async (req: R
     }
 });
 
-const HTTP_PORT = process.env.HTTP_PORT || 5000;
+const HTTP_PORT = process.env.HTTP_PORT || 4000;
 
 export { app };
 
