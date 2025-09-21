@@ -1,17 +1,22 @@
-# health_bot_model.py
-
 import tensorflow as tf
 from tensorflow.keras import layers
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import joblib
+import clean
 #ds
 data = pd.read_csv("dataset_n_model/data_health.csv")
 
 # Step 2: Encode labels
 
-texts = data["Symptoms"].values
+data["Symptoms_clean"] = data["Symptoms"].apply(clean.clean_symptoms)
+data["model_input"] = (
+    data["Symptoms_clean"] + ", " +
+    data["Type"].str.lower() + ", " +
+    data["Category"].str.lower()
+)
+texts = data["model_input"].values
 labels = data["Disease_Name"].values
 
 le = LabelEncoder()

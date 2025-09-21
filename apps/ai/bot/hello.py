@@ -1,10 +1,13 @@
 import bot_2
+import ask_symptom
 def find_out(intent : str,text:str):
     if intent == "greet":
         return "Hello! 👋 I’m your Health Assistant."
 
     elif intent == "ask_symptom":
-        return "Here are some common symptoms I can tell you about. Could you please specify the condition you’re asking for?"
+        n = ask_symptom.get_symptoms(text)
+        print("Disease:", n["matched_disease"])
+        print("Symptoms:",n["symptoms"])
 
     elif intent == "give_symptom":
         return bot_2.predict_disease(text)
