@@ -32,17 +32,15 @@ export default function SignUpPage() {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 p-6">
+      <header className="relative z-50 p-6">
         <div className="container mx-auto flex items-center justify-between">
-          <Link href="/">
-            <Button
-              variant="ghost"
-              className="flex items-center space-x-2 text-lg font-semibold transition-all duration-200 hover:scale-105"
-              style={{ color: colors.text.primary }}
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span>Back to Home</span>
-            </Button>
+          <Link 
+            href="/" 
+            className="flex items-center space-x-2 text-lg font-semibold transition-all duration-200 hover:scale-105 cursor-pointer px-4 py-2 rounded-lg hover:bg-opacity-20 hover:bg-gray-500"
+            style={{ color: colors.text.primary }}
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back to Home</span>
           </Link>
           
           <div className="flex items-center space-x-3">

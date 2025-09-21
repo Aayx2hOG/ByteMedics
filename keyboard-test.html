@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyboard Test</title>
+</head>
+<body>
+    <h1>Keyboard Shortcut Test</h1>
+    <p>Press Ctrl/Cmd + M to test</p>
+    <div id="output"></div>
+    
+    <script>
+        document.addEventListener('keydown', function(e) {
+            const output = document.getElementById('output');
+            output.innerHTML += `<p>Key: ${e.key}, Ctrl: ${e.ctrlKey}, Meta: ${e.metaKey}, Shift: ${e.shiftKey}</p>`;
+            
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'm' || e.key === 'M')) {
+                e.preventDefault();
+                output.innerHTML += '<p style="color: green;">✓ Ctrl/Cmd + M detected!</p>';
+            }
+        });
+    </script>
+</body>
+</html>
