@@ -80,7 +80,11 @@ DATABASE_URL="postgresql://username:password@localhost:5432/health_chatbot"
 ```
 JWT_SECRET=your_jwt_secret
 HTTP_PORT=4000
+<<<<<<< HEAD
 WS_PORT=5001
+=======
+WS_PORT=4001
+>>>>>>> 81b85bd6b75ad5a2a4ca616b9697aaf41e33a516
 ```
 
 ## Development
@@ -118,7 +122,7 @@ cd packages/db && bunx prisma studio
 - `GET /api/v1/chat/sessions/:id/messages` - Get session messages
 
 ### WebSocket
-- `ws://localhost:5001?token=<jwt_token>` - Real-time messaging
+- `ws://localhost:4001?token=<jwt_token>` - Real-time messaging
 
 ## Database Schema
 

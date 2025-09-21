@@ -353,6 +353,91 @@ app.put("/api/v1/chat/sessions/:sessionId/end", authenticateToken, async (req: R
     }
 });
 
+<<<<<<< HEAD
+=======
+// AI Integration Routes
+app.post("/api/v1/ai/health-query", authenticateToken, async (req: Request, res: Response) => {
+    try {
+        const { text, sessionId } = req.body;
+
+        if (!text) {
+            return res.status(400).json({ error: "Text is required" });
+        }
+
+        // Call the AI service
+        const aiResponse = await fetch("http://localhost:8000/api/v1/ai/health-assistant", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text }),
+        });
+
+        if (!aiResponse.ok) {
+            throw new Error(`AI service responded with status: ${aiResponse.status}`);
+        }
+
+        const aiResult = await aiResponse.json();
+
+        // If sessionId is provided, save the message to the session
+        if (sessionId) {
+            // Save user message
+            await prisma.chatMessage.create({
+                data: {
+                    sessionId: sessionId,
+                    sender: (req as any).user.email || 'user',
+                    message: text,
+                    role: "USER",
+                    chatSessionId: sessionId
+                }
+            });
+
+            // Save AI response
+            await prisma.chatMessage.create({
+                data: {
+                    sessionId: sessionId,
+                    sender: 'AI Assistant',
+                    message: aiResult.response,
+                    role: "BOT",
+                    chatSessionId: sessionId
+                }
+            });
+        }
+
+        return res.status(200).json({
+            message: "Health query processed successfully",
+            aiResponse: aiResult
+        });
+
+    } catch (error) {
+        console.error("Error processing health query:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Get AI service status
+app.get("/api/v1/ai/status", async (req: Request, res: Response) => {
+    try {
+        const response = await fetch("http://localhost:8000/health");
+        const status = await response.json();
+        return res.status(200).json(status);
+    } catch (error) {
+        return res.status(503).json({ error: "AI service unavailable" });
+    }
+});
+
+// Get available intents
+app.get("/api/v1/ai/intents", async (req: Request, res: Response) => {
+    try {
+        const response = await fetch("http://localhost:8000/api/v1/ai/intents");
+        const intents = await response.json();
+        return res.status(200).json(intents);
+    } catch (error) {
+        return res.status(503).json({ error: "AI service unavailable" });
+    }
+});
+
+>>>>>>> 81b85bd6b75ad5a2a4ca616b9697aaf41e33a516
 const HTTP_PORT = process.env.HTTP_PORT || 4000;
 
 export { app };

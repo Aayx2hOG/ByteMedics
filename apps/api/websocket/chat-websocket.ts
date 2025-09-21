@@ -1,11 +1,13 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import { IncomingMessage } from 'http';
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
 import { prismaClient } from "db/client";
 import {
     ChatMessageCreateSchema,
     type ChatMessageCreate
 } from "validator";
+import { AI_SERVICE_URL } from '../config.js';
 
 const prisma = prismaClient;
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
@@ -38,6 +40,39 @@ class ChatWebSocketServer {
 
         this.wss.on('connection', this.handleConnection.bind(this));
         console.log(`WebSocket Chat server running on port ${port}`);
+    }
+
+    private async callAIService(message: string, sessionId: string, userId: string): Promise<string | null> {
+        try {
+            const response = await axios.post(`${AI_SERVICE_URL}/chat`, {
+                message: message,
+                sessionId: sessionId,
+                userId: userId
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                timeout: 10000 // 10 second timeout
+            });
+
+            return response.data.response || null;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    // Server responded with error status
+                    console.error('AI service error:', error.response.status, error.response.data);
+                } else if (error.request) {
+                    // Request made but no response received
+                    console.error('AI service timeout or connection error:', error.message);
+                } else {
+                    // Request setup error
+                    console.error('AI service request setup error:', error.message);
+                }
+            } else {
+                console.error('Failed to call AI service:', error);
+            }
+            return null;
+        }
     }
 
     private verifyClient(info: { origin: string; secure: boolean; req: IncomingMessage }): boolean {
@@ -306,6 +341,42 @@ class ChatWebSocketServer {
 
             console.log(`Message sent in session ${ws.sessionId} by ${message.sender}`);
 
+            // If this is a user message, get AI bot response
+            if (message.role === 'USER') {
+                console.log('Getting AI response...');
+                const aiResponse = await this.callAIService(message.message, ws.sessionId, ws.userId!);
+
+                if (aiResponse) {
+                    // Save bot response to database
+                    const botMessageData: ChatMessageCreate = {
+                        sessionId: ws.sessionId,
+                        sender: 'HealthBot',
+                        message: aiResponse,
+                        role: 'BOT',
+                        chatSessionId: ws.sessionId
+                    };
+
+                    const validatedBotData = ChatMessageCreateSchema.parse(botMessageData);
+
+                    const savedBotMessage = await prisma.chatMessage.create({
+                        data: {
+                            ...validatedBotData,
+                            timestamp: new Date()
+                        }
+                    });
+
+                    // Broadcast bot response to all clients in the session
+                    this.broadcastToSession(ws.sessionId, {
+                        type: 'new_message',
+                        data: savedBotMessage
+                    });
+
+                    console.log(`Bot response sent in session ${ws.sessionId}`);
+                } else {
+                    console.log('No AI response received');
+                }
+            }
+
         } catch (error) {
             console.error('Error sending message:', error);
             this.sendToClient(ws, {
@@ -427,7 +498,7 @@ class ChatWebSocketServer {
     }
 }
 
-const WS_PORT = process.env.WS_PORT || 5001;
+const WS_PORT = process.env.WS_PORT || 4001;
 export const chatWebSocketServer = new ChatWebSocketServer(Number(WS_PORT));
 
 export { ChatWebSocketServer };
