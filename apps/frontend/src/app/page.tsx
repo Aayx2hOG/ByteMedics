@@ -7,8 +7,11 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useUser } from '@clerk/nextjs';
+import { UserProfile } from '@/components/UserProfile';
 
 export default function LandingPage() {
+  const { user, isLoaded } = useUser();
   const [isHovered, setIsHovered] = useState(false);
   const [showHealthInfo, setShowHealthInfo] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -92,7 +95,27 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
+            {isLoaded && user ? (
+              <>
+                <UserProfile />
+                <ThemeToggle />
+              </>
+            ) : (
+              <>
+                <Link href="/sign-up">
+                  <Button
+                    className="transition-all duration-200 hover:scale-105 shadow-lg"
+                    style={{
+                      background: colors.gradients.primary,
+                      color: 'white'
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+                <ThemeToggle />
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -141,14 +164,14 @@ export default function LandingPage() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <Link href="/chat">
+            <Link href={user ? "/chat" : "/sign-up"}>
               <Button 
                 size="lg" 
                 className="text-white text-lg px-12 py-6 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 group"
                 style={{ background: colors.gradients.primary }}
               >
                 <MessageCircle className="w-6 h-6 mr-3 group-hover:animate-bounce" />
-                Start Free Consultation
+                {user ? "Continue Chat" : "Start Free Consultation"}
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
             </Link>
