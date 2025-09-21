@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
     console.log('Received message:', data);
     
     try {
-      // Here you can add your chat logic, AI processing, etc.
+      // Handle chat message processing
       // For now, let's send a simple echo response
       const response = {
         message: `Echo: ${data.message}`,
