@@ -12,6 +12,7 @@ import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UserProfile } from '@/components/UserProfile';
+import { Logo } from '@/components/Logo';
 import { Toaster } from 'sonner';
 import { toast } from 'sonner';
 import { MessageCircle, Sparkles, ArrowLeft } from 'lucide-react';
@@ -162,22 +163,7 @@ export default function ChatPage() {
               </Link>
               
               <div className="flex items-center space-x-3">
-                <div className="relative">
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg"
-                    style={{ background: colors.gradients.primary }}
-                  >
-                    <MessageCircle className="w-6 h-6 text-white" />
-                  </div>
-                  <div 
-                    className={`absolute -top-1 -right-1 w-4 h-4 rounded-full ${isConnected ? 'animate-ping' : ''}`}
-                    style={{ backgroundColor: isConnected ? colors.primary[500] : colors.secondary[500] }}
-                  ></div>
-                  <div 
-                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full"
-                    style={{ backgroundColor: isConnected ? colors.primary[500] : colors.secondary[500] }}
-                  ></div>
-                </div>
+                <Logo width={40} height={40} showText={false} />
                 <div>
                   <h1 
                     className="text-xl font-bold flex items-center"

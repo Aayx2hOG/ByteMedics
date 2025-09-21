@@ -9,6 +9,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useUser } from '@clerk/nextjs';
 import { UserProfile } from '@/components/UserProfile';
+import { Logo } from '@/components/Logo';
 
 export default function LandingPage() {
   const { user, isLoaded } = useUser();
@@ -62,38 +63,7 @@ export default function LandingPage() {
         }}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div 
-                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg"
-                style={{ background: colors.gradients.primary }}
-              >
-                <MessageCircle className="w-6 h-6 text-white" />
-              </div>
-              <div 
-                className="absolute -top-1 -right-1 w-4 h-4 rounded-full animate-ping"
-                style={{ backgroundColor: colors.primary[500] }}
-              ></div>
-              <div 
-                className="absolute -top-1 -right-1 w-4 h-4 rounded-full"
-                style={{ backgroundColor: colors.primary[500] }}
-              ></div>
-            </div>
-            <div>
-              <h1 
-                className="text-2xl font-bold"
-                style={{ color: colors.text.primary }}
-              >
-                ByteMedics
-              </h1>
-              <p 
-                className="text-xs"
-                style={{ color: colors.text.muted }}
-              >
-                AI Health Assistant
-              </p>
-            </div>
-          </div>
+          <Logo width={40} height={40} showText={true} className="hover:scale-105 transition-transform" />
           <div className="flex items-center space-x-4">
             {isLoaded && user ? (
               <>

@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ByteMedics - AI Health Assistant",
   description: "Your personal AI-powered health assistant. Get instant medical insights, symptom analysis, and health guidance through natural conversation.",
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({
