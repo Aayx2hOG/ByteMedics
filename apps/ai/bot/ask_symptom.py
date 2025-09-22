@@ -1,7 +1,7 @@
 import pandas as pd
 from rapidfuzz import process
 
-df = pd.read_csv("dataset_n_model/data_health.csv")
+df = pd.read_csv("data_health.csv")
 disease_to_symptoms = dict(zip(df["Disease_Name"].str.lower(), df["Symptoms"]))
 disease_list = list(disease_to_symptoms.keys())
 

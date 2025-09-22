@@ -3,8 +3,8 @@ import joblib
 import numpy as np
 
 # Load model & label encoder
-model = tf.keras.models.load_model("dataset_n_model/health_model.keras")
-label_encoder = joblib.load("dataset_n_model/label_encoder.pkl")
+model = tf.keras.models.load_model("health_model.keras")
+label_encoder = joblib.load("label_encoder.pkl")
 
 def predict_disease(symptom_text: str, threshold: float = 0.25):
     text = tf.constant([symptom_text])

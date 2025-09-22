@@ -6,8 +6,7 @@ def find_out(intent : str,text:str):
 
     elif intent == "ask_symptom":
         n = ask_symptom.get_symptoms(text)
-        print("Disease:", n["matched_disease"])
-        print("Symptoms:",n["symptoms"])
+        return n
 
     elif intent == "give_symptom":
         return bot_2.predict_disease(text)
